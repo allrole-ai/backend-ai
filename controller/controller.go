@@ -27,6 +27,34 @@ func EditUser(mongoenv *mongo.Database, collname string, datauser UserNew) inter
 	return atdb.ReplaceOneDoc(mongoenv, collname, filter, datauser)
 }
 
+func GetAllUser(mongoconn *mongo.Database, collection string) []UserNew {
+	user := atdb.GetAllDoc[[]UserNew](mongoconn, collection)
+	return user
+}
+
+func FindUserUser(mongoconn *mongo.Database, collection string, userdata User) User {
+	filter := bson.M{
+		"username": userdata.Username,
+	}
+	return atdb.GetOneDoc[User](mongoconn, collection, filter)
+}
+
+func Deleteuser(mongoconn *mongo.Database, collection string, userdata2 UserNew) interface{} {
+	filter := bson.M{"username": userdata2.Username}
+	return atdb.DeleteOneDoc(mongoconn, collection, filter)
+}
+
+func UpdatedUser(mongoconn *mongo.Database, collection string, filter bson.M, userdata2 UserNew) interface{} {
+	updatedFilter := bson.M{"username": userdata2.Username}
+	return atdb.ReplaceOneDoc(mongoconn, collection, updatedFilter, userdata2)
+}
+
+func EditUser(mongoenv *mongo.Database, collname string, datauser UserNew) interface{} {
+	filter := bson.M{"username": datauser.Username}
+	return atdb.ReplaceOneDoc(mongoenv, collname, filter, datauser)
+}
+
+
 func GetUserFromID(db *mongo.Database, col string, _id primitive.ObjectID) (*UserNew, error) {
 	cols := db.Collection(col)
 	filter := bson.M{"_id": _id}
