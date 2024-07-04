@@ -84,13 +84,4 @@ func LogIn(db *mongo.Database, insertedDoc model.User) (user model.User, err err
 	if err != nil {
 		return 
 	}
-	salt, err := hex.DecodeString(existsDoc.Salt)
-	if err != nil {
-		return user, fmt.Errorf("kesalahan server : salt")
-	}
-	hash := argon2.IDKey([]byte(insertedDoc.Password), salt, 1, 64*1024, 4, 32)
-	if hex.EncodeToString(hash) != existsDoc.Password {
-		return user, fmt.Errorf("password salah")
-	}
-	return existsDoc, nil
-}
+	
