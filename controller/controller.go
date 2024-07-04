@@ -44,6 +44,15 @@ func Deleteuser(mongoconn *mongo.Database, collection string, userdata2 UserNew)
 	return atdb.DeleteOneDoc(mongoconn, collection, filter)
 }
 
+func UpdatedUser(mongoconn *mongo.Database, collection string, filter bson.M, userdata2 UserNew) interface{} {
+	updatedFilter := bson.M{"username": userdata2.Username}
+	return atdb.ReplaceOneDoc(mongoconn, collection, updatedFilter, userdata2)
+}
+
+func EditUser(mongoenv *mongo.Database, collname string, datauser UserNew) interface{} {
+	filter := bson.M{"username": datauser.Username}
+	return atdb.ReplaceOneDoc(mongoenv, collname, filter, datauser)
+}
 
 
 func GetUserFromID(db *mongo.Database, col string, _id primitive.ObjectID) (*UserNew, error) {
@@ -52,7 +61,16 @@ func GetUserFromID(db *mongo.Database, col string, _id primitive.ObjectID) (*Use
 
 	userlist := new(UserNew)
 
+	err := cols.FindOne(context.Background(), filter).Decode(userlist)
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return nil, fmt.Errorf("no data found for ID %s", _id.Hex())
+		}
+		return nil, fmt.Errorf("error retrieving data for ID %s: %s", _id.Hex(), err.Error())
+	}
 
+	return userlist, nil
+}
 
 //login
 func LogIn(db *mongo.Database, insertedDoc model.User) (user model.User, err error) {
@@ -66,4 +84,13 @@ func LogIn(db *mongo.Database, insertedDoc model.User) (user model.User, err err
 	if err != nil {
 		return 
 	}
-	
+	salt, err := hex.DecodeString(existsDoc.Salt)
+	if err != nil {
+		return user, fmt.Errorf("kesalahan server : salt")
+	}
+	hash := argon2.IDKey([]byte(insertedDoc.Password), salt, 1, 64*1024, 4, 32)
+	if hex.EncodeToString(hash) != existsDoc.Password {
+		return user, fmt.Errorf("password salah")
+	}
+	return existsDoc, nil
+}
