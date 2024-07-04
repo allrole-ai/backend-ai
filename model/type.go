@@ -26,3 +26,13 @@ type AIResponse struct {
 	Answer    string    `bson:"answer,omitempty" json:"answer,omitempty"`
 	Timestamp time.Time `bson:"timestamp,omitempty" json:"timestamp,omitempty"`
 }
+
+type Credential struct {
+	Status  bool   `json:"status" bson:"status"`
+	Token   string `json:"token,omitempty" bson:"token,omitempty"`
+	Message string `json:"message,omitempty" bson:"message,omitempty"`
+}
+
+type Payload struct {
+	User string `json:"user"`
+}
