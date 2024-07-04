@@ -61,16 +61,7 @@ func GetUserFromID(db *mongo.Database, col string, _id primitive.ObjectID) (*Use
 
 	userlist := new(UserNew)
 
-	err := cols.FindOne(context.Background(), filter).Decode(userlist)
-	if err != nil {
-		if errors.Is(err, mongo.ErrNoDocuments) {
-			return nil, fmt.Errorf("no data found for ID %s", _id.Hex())
-		}
-		return nil, fmt.Errorf("error retrieving data for ID %s: %s", _id.Hex(), err.Error())
-	}
 
-	return userlist, nil
-}
 
 //login
 func LogIn(db *mongo.Database, insertedDoc model.User) (user model.User, err error) {
