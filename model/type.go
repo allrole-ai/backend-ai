@@ -27,6 +27,12 @@ type AIResponse struct {
 	Timestamp time.Time `bson:"timestamp,omitempty" json:"timestamp,omitempty"`
 }
 
+type Response struct {
+	Status  bool        `json:"status" bson:"status"`
+	Message string      `json:"message" bson:"message"`
+	Data    interface{} `json:"data" bson:"data"`
+}
+
 type Credential struct {
 	Status  bool   `json:"status" bson:"status"`
 	Token   string `json:"token,omitempty" bson:"token,omitempty"`
