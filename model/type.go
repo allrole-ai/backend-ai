@@ -21,20 +21,35 @@ type Password struct {
 	Confirmpassword string `bson:"confirmpass,omitempty" json:"confirmpass,omitempty"`
 }
 
-type AIResponse struct {
-	Question  string    `bson:"question,omitempty" json:"question,omitempty"`
-	Answer    string    `bson:"answer,omitempty" json:"answer,omitempty"`
-	Timestamp time.Time `bson:"timestamp,omitempty" json:"timestamp,omitempty"`
+type AIRequest struct {
+	ID        primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
+	User      User               `bson:"user,omitempty" json:"user,omitempty"`
+	Query     string             `bson:"query,omitempty" json:"query,omitempty"`
+	CreatedAt time.Time          `bson:"created_at,omitempty" json:"created_at,omitempty"`
 }
 
-type Response struct {
-	Status  bool        `json:"status" bson:"status"`
-	Message string      `json:"message" bson:"message"`
-	Data    interface{} `json:"data" bson:"data"`
+type AIResponse struct {
+	ID        primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
+	AIRequest AIRequest          `bson:"airequest,omitempty" json:"airequest,omitempty"`
+	Response  string             `bson:"response,omitempty" json:"response,omitempty"`
+	CreatedAt time.Time          `bson:"created_at,omitempty" json:"created_at,omitempty"`
 }
 
 type Credential struct {
-	Status  bool   `json:"status" bson:"status"`
+	Status  int    `json:"status" bson:"status"`
 	Token   string `json:"token,omitempty" bson:"token,omitempty"`
 	Message string `json:"message,omitempty" bson:"message,omitempty"`
+}
+
+type Response struct {
+	Status  int    `json:"status" bson:"status"`
+	Message string `json:"message,omitempty" bson:"message,omitempty"`
+}
+
+type Payload struct {
+	Id    primitive.ObjectID `json:"id"`
+	Email string             `json:"email"`
+	Exp   time.Time          `json:"exp"`
+	Iat   time.Time          `json:"iat"`
+	Nbf   time.Time          `json:"nbf"`
 }
