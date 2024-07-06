@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"net/url"
+	"strings"
 	"time"
 
 	"github.com/allrole-ai/backend-ai/config"
@@ -37,6 +39,17 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 	maxRetries := 5
 	retryDelay := 20 * time.Second
 
+	parsedURL, err := url.Parse(apiUrl)
+
+	if err != nil {
+		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing URL model hugging face"+err.Error())
+		return
+	}
+
+	segments := strings.Split(parsedURL.Path, "/")
+
+	modelName := strings.Join(segments[2:], "/")
+
 	// Request ke Hugging Face API
 	for retryCount < maxRetries {
 		response, err = client.R().
@@ -54,7 +67,7 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 		} else {
 			var errorResponse map[string]interface{}
 			err = json.Unmarshal(response.Body(), &errorResponse)
-			if err == nil && errorResponse["error"] == "Model is currently loading" {
+			if err == nil && errorResponse["error"] == "Model "+modelName+" is currently loading" {
 				retryCount++
 				time.Sleep(retryDelay)
 				continue
@@ -65,7 +78,7 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 	}
 
 	if response.StatusCode() != 200 {
-		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error from Hugging Face API "+string(response.Body()))
+		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Errorr", "error from Hugging Face API "+string(response.Body()))
 		return
 	}
 
