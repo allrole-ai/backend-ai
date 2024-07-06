@@ -7,6 +7,12 @@ import (
 // Daftar origins yang diizinkan
 var Origins = []string{
 	"http://localhost:8080",
+	"http://127.0.0.1:8080",
+	"http://127.0.0.1:5500",
+	"http://127.0.0.1:5501",
+	"http://127.0.0.1:5503",
+	"https://allrole-ai.github.io/",
+	"https://ryaasishlah.github.io",
 }
 
 // Fungsi untuk memeriksa apakah origin diizinkan
