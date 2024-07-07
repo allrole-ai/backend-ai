@@ -1,10 +1,12 @@
 package test
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/allrole-ai/backend-ai/config"
 	helper "github.com/allrole-ai/backend-ai/helper"
+	"github.com/allrole-ai/backend-ai/model"
 	module "github.com/allrole-ai/backend-ai/module"
 )
 
@@ -29,7 +31,6 @@ func TestInsertOneDoc(t *testing.T) {
 	t.Logf("InsertedDoc : %v", insertedDoc)
 }
 
-
 func TestRegister(t *testing.T) {
 	var doc model.User
 	doc.NamaLengkap = "Fahad"
@@ -42,4 +43,11 @@ func TestRegister(t *testing.T) {
 	} else {
 		fmt.Println("Data berhasil disimpan dengan email:", email)
 	}
+}
+
+func TestLogin()  {
+	var user model.User
+	user.Email = "qobel@gmail.com"
+	user.Password = "qobel123"
+	user, err := module.Login(db, user)
 }
