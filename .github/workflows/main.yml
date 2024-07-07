@@ -34,7 +34,7 @@ jobs:
           gcloud functions deploy allrole-ai \
             --region=asia-southeast2 \
             --allow-unauthenticated \
-            --entry-point=WebHook \
+            --entry-point=allrole \
             --gen2 \
             --runtime=go122 \
             --trigger-http \
