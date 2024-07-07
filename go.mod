@@ -7,7 +7,6 @@ require (
 	github.com/GoogleCloudPlatform/functions-framework-go v1.8.1
 	github.com/badoux/checkmail v1.2.4
 	github.com/go-resty/resty/v2 v2.13.1
-	github.com/joho/godotenv v1.5.1
 	go.mongodb.org/mongo-driver v1.16.0
 	golang.org/x/crypto v0.25.0
 )
