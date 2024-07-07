@@ -45,6 +45,14 @@ func TestRegister(t *testing.T) {
 	}
 }
 
-func TestLogin()  {
-	
-}
+func TestLogin(t *testing.T) {
+	var user model.User
+	user.Email = "qobel@gmail.com"
+	user.Password = "qobel123"
+	user, err := module.Login(db, user)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("Berhasil LogIn : ", user.Email)
+ 	}
+ }
