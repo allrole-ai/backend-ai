@@ -31,7 +31,7 @@ jobs:
         run: "gcloud info"
       - name: "Deploy a gen 2 cloud function"
         run: |
-          gcloud functions deploy allroleai \
+          gcloud functions deploy allrole \
             --region=asia-southeast2 \
             --allow-unauthenticated \
             --entry-point=WebHook \
@@ -43,8 +43,8 @@ jobs:
             --set-env-vars=PASETOPUBLICKEY='${{ secrets.PASETOPUBLICKEY }}' \
             --set-env-vars=PASETOPRIVATEKEY='${{ secrets.PASETOPRIVATEKEY }}' 
       - name: "Cek eksistensi fungsi"
-        run: "gcloud functions describe backend-ai --region=asia-southeast2"
+        run: "gcloud functions describe allrole --region=asia-southeast2"
       - name: "Cek log debugging"
-        run: "gcloud functions logs read backend-ai --region=asia-southeast2"
+        run: "gcloud functions logs read allrole --region=asia-southeast2"
       - name: "Cleaning Artifact Registry"
         run: "gcloud artifacts repositories delete gcf-artifacts --location=asia-southeast2 --quiet"
