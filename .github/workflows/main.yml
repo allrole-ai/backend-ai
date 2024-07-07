@@ -31,10 +31,10 @@ jobs:
         run: "gcloud info"
       - name: "Deploy a gen 2 cloud function"
         run: |
-          gcloud functions deploy allrole-ai \
+          gcloud functions deploy allroleai \
             --region=asia-southeast2 \
             --allow-unauthenticated \
-            --entry-point=allrole \
+            --entry-point=allroleai \
             --gen2 \
             --runtime=go122 \
             --trigger-http \
