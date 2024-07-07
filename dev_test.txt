@@ -33,10 +33,10 @@
 
 // func TestRegister(t *testing.T) {
 // 	var doc model.User
-// 	doc.NamaLengkap = "Fahad"
-// 	doc.Email = "qobel@gmai.com"
+// 	doc.NamaLengkap = "Riziq"
+// 	doc.Email = "riziq@gmai.com"
 // 	doc.Password = "qobel123"
-// 	doc.Confirmpassword = "qobel123"
+// 	doc.Confirmpassword = "riziq123"
 // 	email, err := module.Register(db, "user", doc)
 // 	if err != nil {
 // 		t.Errorf("Error inserting document: %v", err)
@@ -47,8 +47,8 @@
 
 // func TestLogin(t *testing.T) {
 // 	var user model.User
-// 	user.Email = "qobel@gmail.com"
-// 	user.Password = "qobel123"
+// 	user.Email = "riziq@gmail.com"
+// 	user.Password = "riziq123"
 // 	user, err := module.Login(db, user)
 // 	if err != nil {
 // 		fmt.Println(err)
