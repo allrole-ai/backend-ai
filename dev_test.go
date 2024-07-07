@@ -8,7 +8,7 @@ import (
 	module "github.com/allrole-ai/backend-ai/module"
 )
 
-var db = module.MongoConnect("MONGOSTRING", "allrole-ai",)
+var db = module.MongoConnect("MONGOSTRING", "all")
 
 func TestGenerateKey(t *testing.T) {
 	privateKey, publicKey := helper.GenerateKey()
@@ -29,9 +29,10 @@ func TestInsertOneDoc(t *testing.T) {
 	t.Logf("InsertedDoc : %v", insertedDoc)
 }
 
+
 func TestRegister(t *testing.T) {
 	var doc model.User
-	doc.NamaLengkap = "Fahad Abdul Aziz"
+	doc.NamaLengkap = "Fahad"
 	doc.Email = "fahad@gmail.com"
 	doc.Password = "fahad#123"
 	doc.Confirmpassword = "fahad#123"
