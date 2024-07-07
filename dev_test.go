@@ -34,9 +34,9 @@ func TestInsertOneDoc(t *testing.T) {
 func TestRegister(t *testing.T) {
 	var doc model.User
 	doc.NamaLengkap = "Fahad"
-	doc.Email = "fahad@gmail.com"
-	doc.Password = "fahad#123"
-	doc.Confirmpassword = "fahad#123"
+	doc.Email = "qobel@gmai.com"
+	doc.Password = "qobel123"
+	doc.Confirmpassword = "qobel123"
 	email, err := module.Register(db, "user", doc)
 	if err != nil {
 		t.Errorf("Error inserting document: %v", err)
