@@ -8,7 +8,7 @@ import (
 	module "github.com/allrole-ai/backend-ai/module"
 )
 
-// var db = module.MongoConnect("MONGOSTRING", "team_ai")
+var db = module.MongoConnect("MONGOSTRING", "allrole-ai",)
 
 func TestGenerateKey(t *testing.T) {
 	privateKey, publicKey := helper.GenerateKey()
