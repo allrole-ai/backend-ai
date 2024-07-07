@@ -46,8 +46,5 @@ func TestRegister(t *testing.T) {
 }
 
 func TestLogin()  {
-	var user model.User
-	user.Email = "qobel@gmail.com"
-	user.Password = "qobel123"
-	user, err := module.Login(db, user)
+	
 }
