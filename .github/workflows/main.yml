@@ -41,7 +41,7 @@ jobs:
             --timeout=540s \
             --set-env-vars=MONGOSTRING='${{ secrets.MONGOSTRING }}' \
             --set-env-vars=PASETOPUBLICKEY='${{ secrets.PASETOPUBLICKEY }}' \
-            --set-env-vars=PASETOPRIVATEKEY='${{ secrets.PASETOPRIVATEKEY }}' \
+            --set-env-vars=PASETOPRIVATEKEY='${{ secrets.PASETOPRIVATEKEY }}' 
       - name: "Cek eksistensi fungsi"
         run: "gcloud functions describe backend-ai --region=asia-southeast2"
       - name: "Cek log debugging"
