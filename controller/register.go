@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/allrole-ai/backend-ai/helper"
-	model "github.com/allrole-ai/backend-ai/model"
+	"github.com/allrole-ai/backend-ai/model"
 	"github.com/badoux/checkmail"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -25,7 +25,7 @@ func Register(db *mongo.Database, col string, respw http.ResponseWriter, req *ht
 	}
 
 	if user.NamaLengkap == "" || user.Email == "" || user.Password == "" || user.Confirmpassword == "" {
-		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "dimohon untuk melengkapi data")
+		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "mohon untuk melengkapi data")
 		return
 	}
 	if err := checkmail.ValidateFormat(user.Email); err != nil {
@@ -38,7 +38,7 @@ func Register(db *mongo.Database, col string, respw http.ResponseWriter, req *ht
 		return
 	}
 	if strings.Contains(user.Password, " ") {
-		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "password tidak boleh terdapat spasi")
+		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "password tidak boleh mengandung spasi")
 		return
 	}
 	if len(user.Password) < 8 {
