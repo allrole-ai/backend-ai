@@ -40,14 +40,12 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 	retryDelay := 20 * time.Second
 
 	parsedURL, err := url.Parse(apiUrl)
-
 	if err != nil {
-		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing URL model hugging face"+err.Error())
+		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing URL model hugging face "+err.Error())
 		return
 	}
 
 	segments := strings.Split(parsedURL.Path, "/")
-
 	modelName := strings.Join(segments[2:], "/")
 
 	// Request ke Hugging Face API
@@ -56,7 +54,7 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 			SetHeader("Authorization", apiToken).
 			SetHeader("Content-Type", "application/json").
 			SetBody(map[string]interface{}{
-				"inputs": map[string]string{"text": chat.Query},
+				"inputs": chat.Query,
 			}).
 			Post(apiUrl)
 
@@ -80,21 +78,25 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 	}
 
 	if response.StatusCode() != 200 {
-		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Errorr", "error from Hugging Face API "+string(response.Body()))
+		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error from Hugging Face API "+string(response.Body()))
 		return
 	}
 
-	var data map[string]interface{}
-
+	var data []map[string]interface{}
 	err = json.Unmarshal(response.Body(), &data)
 	if err != nil {
 		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing response body "+err.Error())
 		return
 	}
 
-	if generatedText, ok := data["generated_text"].(string); ok {
+	if len(data) > 0 {
+		generatedText, ok := data[0]["generated_text"].(string)
+		if !ok {
+			helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error extracting generated text")
+			return
+		}
 		helper.WriteJSON(respw, http.StatusOK, map[string]string{"answer": generatedText})
 	} else {
-		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error extracting generated text")
+		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server: response")
 	}
 }
