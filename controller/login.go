@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/allrole-ai/backend-ai/helper"
-	model "github.com/allrole-ai/backend-ai/model"
+	"github.com/allrole-ai/backend-ai/model"
 	"github.com/badoux/checkmail"
 	"go.mongodb.org/mongo-driver/mongo"
 	"golang.org/x/crypto/argon2"
@@ -48,10 +48,14 @@ func Login(db *mongo.Database, respw http.ResponseWriter, req *http.Request, pri
 		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server : token")
 		return
 	}
-	resp := map[string]string{
+	resp := map[string]any{
 		"status":  "success",
 		"message": "login berhasil",
 		"token":   tokenstring,
+		"data": map[string]string{
+			"email":       existsDoc.Email,
+			"namalengkap": existsDoc.NamaLengkap,
+		},
 	}
 	helper.WriteJSON(respw, http.StatusOK, resp)
 }
