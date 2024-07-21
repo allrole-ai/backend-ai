@@ -53,13 +53,14 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 		response, err = client.R().
 			SetHeader("Authorization", apiToken).
 			SetHeader("Content-Type", "application/json").
-			SetBody(map[string]interface{}{
-				"inputs": chat.Query,
-			}).
+			SetBody(`{"inputs": "` + chat.Query + `"}`).
 			Post(apiUrl)
 
 		if err != nil {
-			log.Fatalf("Error making request: %v", err)
+			log.Printf("Error making request: %v", err)
+			retryCount++
+			time.Sleep(retryDelay)
+			continue
 		}
 
 		if response.StatusCode() == http.StatusOK {
@@ -82,7 +83,7 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 		return
 	}
 
-	var data []map[string]interface{}
+	var data []interface{}
 	err = json.Unmarshal(response.Body(), &data)
 	if err != nil {
 		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing response body "+err.Error())
@@ -90,12 +91,13 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 	}
 
 	if len(data) > 0 {
-		generatedText, ok := data[0]["generated_text"].(string)
-		if !ok {
-			helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error extracting generated text")
-			return
+		if generatedMap, ok := data[0].(map[string]interface{}); ok {
+			if generatedText, ok := generatedMap["generated_text"].(string); ok {
+				helper.WriteJSON(respw, http.StatusOK, map[string]string{"answer": generatedText})
+				return
+			}
 		}
-		helper.WriteJSON(respw, http.StatusOK, map[string]string{"answer": generatedText})
+		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error extracting generated text")
 	} else {
 		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server: response")
 	}
