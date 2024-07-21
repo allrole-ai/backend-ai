@@ -19,7 +19,7 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 
 	err := json.NewDecoder(req.Body).Decode(&chat)
 	if err != nil {
-		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "error parsing request body "+err.Error())
+		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "error parsing request body: "+err.Error())
 		return
 	}
 
@@ -34,21 +34,21 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 	apiUrl := config.GetEnv("HUGGINGFACE_API_KEY")
 	apiToken := "Bearer " + tokenmodel
 
-	var response *resty.Response
-	var retryCount int
-	maxRetries := 5
-	retryDelay := 20 * time.Second
-
 	parsedURL, err := url.Parse(apiUrl)
 	if err != nil {
-		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing URL model Hugging Face "+err.Error())
+		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing URL model Hugging Face: "+err.Error())
 		return
 	}
 
 	segments := strings.Split(parsedURL.Path, "/")
 	modelName := strings.Join(segments[2:], "/")
 
-	// Request ke API Hugging Face
+	// Request ke API Hugging Face dengan retry logic
+	var response *resty.Response
+	retryCount := 0
+	maxRetries := 5
+	retryDelay := 20 * time.Second
+
 	for retryCount < maxRetries {
 		response, err = client.R().
 			SetHeader("Authorization", apiToken).
@@ -73,20 +73,20 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 				time.Sleep(retryDelay)
 				continue
 			}
-			helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error from Hugging Face API "+string(response.Body()))
+			helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error from Hugging Face API: "+string(response.Body()))
 			return
 		}
 	}
 
-	if response.StatusCode() != 200 {
-		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error from Hugging Face API "+string(response.Body()))
+	if response.StatusCode() != http.StatusOK {
+		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error from Hugging Face API: "+string(response.Body()))
 		return
 	}
 
-	var data []map[string]string
+	var data []map[string]interface{}
 	err = json.Unmarshal(response.Body(), &data)
 	if err != nil {
-		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing response body "+err.Error())
+		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing response body: "+err.Error())
 		return
 	}
 
@@ -94,7 +94,7 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 	log.Printf("Response data: %v", data)
 
 	if len(data) > 0 {
-		if answer, ok := data[0]["answer"]; ok {
+		if answer, ok := data[0]["answer"].(string); ok {
 			helper.WriteJSON(respw, http.StatusOK, map[string]string{"answer": answer})
 			return
 		}
