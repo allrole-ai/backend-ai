@@ -30,7 +30,7 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 
 	client := resty.New()
 
-	// Hugging Face API URL dan token
+	// URL API Hugging Face dan token
 	apiUrl := config.GetEnv("HUGGINGFACE_API_KEY")
 	apiToken := "Bearer " + tokenmodel
 
@@ -41,14 +41,14 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 
 	parsedURL, err := url.Parse(apiUrl)
 	if err != nil {
-		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing URL model hugging face "+err.Error())
+		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing URL model Hugging Face "+err.Error())
 		return
 	}
 
 	segments := strings.Split(parsedURL.Path, "/")
 	modelName := strings.Join(segments[2:], "/")
 
-	// Request ke Hugging Face API
+	// Request ke API Hugging Face
 	for retryCount < maxRetries {
 		response, err = client.R().
 			SetHeader("Authorization", apiToken).
@@ -83,21 +83,22 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 		return
 	}
 
-	var data []interface{}
+	var data []map[string]string
 	err = json.Unmarshal(response.Body(), &data)
 	if err != nil {
 		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing response body "+err.Error())
 		return
 	}
 
+	// Logging untuk memeriksa struktur data yang diterima
+	log.Printf("Response data: %v", data)
+
 	if len(data) > 0 {
-		if generatedMap, ok := data[0].(map[string]interface{}); ok {
-			if generatedText, ok := generatedMap["generated_text"].(string); ok {
-				helper.WriteJSON(respw, http.StatusOK, map[string]string{"answer": generatedText})
-				return
-			}
+		if answer, ok := data[0]["answer"]; ok {
+			helper.WriteJSON(respw, http.StatusOK, map[string]string{"answer": answer})
+			return
 		}
-		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error extracting generated text")
+		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error extracting answer")
 	} else {
 		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server: response")
 	}
