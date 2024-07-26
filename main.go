@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/backend-ai/backend/routes"
+	"github.com/backend-ai/routes"
 	"github.com/gofiber/adaptor/v2"
 	"github.com/gofiber/fiber/v2"
 )
