@@ -68,10 +68,10 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 			}
 		}
 
-	if response.StatusCode() != http.StatusOK {
-		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error from Hugging Face API: "+string(response.Body()))
-		return
-	}
+		if response.StatusCode() != 200 {
+			helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error from Hugging Face API "+string(response.Body()))
+			return
+		}
 
 	var data []map[string]interface{}
 	err = json.Unmarshal(response.Body(), &data)
