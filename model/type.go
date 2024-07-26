@@ -25,6 +25,7 @@ type AIRequest struct {
 	ID        primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
 	User      User               `bson:"user,omitempty" json:"user,omitempty"`
 	Query     string             `bson:"query,omitempty" json:"query,omitempty"`
+	Prompt    string    `bson:"prompt,omitempty" json:"prompt,omitempty"`
 	CreatedAt time.Time          `bson:"created_at,omitempty" json:"created_at,omitempty"`
 }
 
