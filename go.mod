@@ -44,8 +44,8 @@ require (
 	aidanwoods.dev/go-result v0.1.0 // indirect
 	github.com/cloudevents/sdk-go/v2 v2.14.0 // indirect
 	github.com/gin-gonic/gin v1.10.0
-	github.com/gofiber/fiber/v2 v2.52.5
 	github.com/gofiber/adaptor/v2 v2.2.1
+	github.com/gofiber/fiber/v2 v2.52.5
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/uuid v1.5.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect

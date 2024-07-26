@@ -1,0 +1,4 @@
+MONGOSTRING=mongodb+srv://rafiazhim:1214005@geogis-1214005.8kz4kfx.mongodb.net/
+PASETOPRIVATEKEY=1f246c37ce700140a0b7d7841776a0e4da0ad45ac3d38eadd378ae6952af86c00c3a80d6f9bbaf8da5b1d637f5049b3cdcefee50e2c9f6538c964018a139bdf1
+HUGGINGFACE_API_URL=https://api-inference.huggingface.co/models/GilarYa/anakilang-ai5
+TOKENMODEL=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
