@@ -43,7 +43,7 @@ jobs:
             --set-env-vars=PASETOPUBLICKEY='${{ secrets.PASETOPUBLICKEY }}' \
             --set-env-vars=PASETOPRIVATEKEY='${{ secrets.PASETOPRIVATEKEY }}' \
             --set-env-vars=TOKENMODEL='${{ secrets.TOKENMODEL }}' \
-            --set-env-vars=HUGGINGFACE_API_KEY='${{ secrets.HUGGINGFACE_API_KEY }}'
+            --set-env-vars=HUGGINGFACE_API_KEY='${{ secrets.HUGGINGFACE_API_KEY }}'\
       - name: "Cek eksistensi fungsi"
         run: "gcloud functions describe allrole --region=asia-southeast2"
       - name: "Cek log debugging"
