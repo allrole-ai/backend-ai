@@ -74,6 +74,7 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 		}
 
 	var data []map[string]interface{}
+
 	err = json.Unmarshal(response.Body(), &data)
 	if err != nil {
 		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing response body: "+err.Error())
@@ -81,14 +82,13 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 	}
 
 	// Logging untuk memeriksa struktur data yang diterima
-	log.Printf("Response data: %v", data)
-
 	if len(data) > 0 {
-		if answer, ok := data[0]["answer"].(string); ok {
-			helper.WriteJSON(respw, http.StatusOK, map[string]string{"answer": answer})
+		generatedText, ok := data[0]["generated_text"].(string)
+		if !ok {
+			helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error extracting generated text")
 			return
 		}
-		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error extracting answer")
+		helper.WriteJSON(respw, http.StatusOK, map[string]string{"answer": generatedText})
 	} else {
 		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server: response")
 	}
