@@ -1,11 +1,16 @@
-package allrole
+package main
 
 import (
-	"github.com/allrole-ai/backend-ai/routes"
-
-	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
+	"github.com/backend-ai/backend/routes"
+	"github.com/gofiber/adaptor/v2"
+	"github.com/gofiber/fiber/v2"
 )
 
-func init() {
-	functions.HTTP("WebHook", routes.URL)
+func main() {
+	app := fiber.New()
+	// Define a fiber handler for all requests
+	app.All("/*", adaptor.HTTPHandlerFunc(routes.URL))
+
+	port := ":8080"
+	app.Listen(port)
 }
