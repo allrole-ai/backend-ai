@@ -3,9 +3,6 @@ package controller
 
 
 
-		if err != nil {
-			log.Fatalf("Error making request: %v", err)
-		}
 
 		if response.StatusCode() == http.StatusOK {
 			break
