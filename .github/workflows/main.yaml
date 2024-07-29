@@ -25,11 +25,3 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
         run: |
           echo "$GOOGLE_APPLICATION_CREDENTIALS" > credentials.json
-      - name: "Set up Cloud SDK"
-        uses: "google-github-actions/setup-gcloud@v2"
-      - name: "Use gcloud CLI"
-        run: "gcloud info"
-      - name: "Deploy a gen 2 cloud function"
-        run: |
-          gcloud functions deploy allroles \
-            --region=asia-southeast2 \
