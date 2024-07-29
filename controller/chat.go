@@ -4,12 +4,6 @@ package controller
 
 
 
-	err = json.Unmarshal(response.Body(), &data)
-	if err != nil {
-		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing response body "+err.Error())
-		return
-	}
-
 	if len(data) > 0 {
 		generatedText, ok := data[0]["generated_text"].(string)
 		if !ok {
