@@ -44,9 +44,3 @@ jobs:
             --set-env-vars=PASETOPRIVATEKEY='${{ secrets.PASETOPRIVATEKEY }}' \
             --set-env-vars=TOKENMODEL='${{ secrets.TOKENMODEL }}' \
             --set-env-vars=HUGGINGFACE_API_KEY='${{ secrets.HUGGINGFACE_API_KEY }}'
-      - name: "Cek eksistensi fungsi"
-        run: "gcloud functions describe allroles --region=asia-southeast2"
-      - name: "Cek log debugging"
-        run: "gcloud functions logs read allroles --region=asia-southeast2"
-      - name: "Cleaning Artifact Registry"
-        run: "gcloud artifacts repositories delete gcf-artifacts --location=asia-southeast2 --quiet"
