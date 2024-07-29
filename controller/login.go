@@ -1,7 +1,5 @@
 package controller
 
-
-
 // Login handles user login
 func Login(db *mongo.Database, respw http.ResponseWriter, req *http.Request, privatekey string) {
 	var user model.User
@@ -43,3 +41,16 @@ func Login(db *mongo.Database, respw http.ResponseWriter, req *http.Request, pri
 		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server : token")
 		return
 	}
+
+	resp := map[string]interface{}{
+		"status":  "success",
+		"message": "login berhasil",
+		"token":   tokenstring,
+		"data": map[string]string{
+			"email":       existsDoc.Email,
+			"namalengkap": existsDoc.NamaLengkap,
+		},
+	}
+
+	helper.WriteJSON(respw, http.StatusOK, resp)
+}
