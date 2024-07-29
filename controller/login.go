@@ -1,10 +1,7 @@
 package controller
 
 
-	if user.Email == "" || user.Password == "" {
-		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "mohon untuk melengkapi data")
-		return
-	}
+
 	if err = checkmail.ValidateFormat(user.Email); err != nil {
 		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "email tidak valid")
 		return
