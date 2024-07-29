@@ -3,14 +3,6 @@ package controller
 
 
 
-	// Request ke Hugging Face API
-	for retryCount < maxRetries {
-		response, err = client.R().
-			SetHeader("Authorization", apiToken).
-			SetHeader("Content-Type", "application/json").
-			SetBody(`{"inputs": "` + chat.Query + `"}`).
-			Post(apiUrl)
-
 		if err != nil {
 			log.Fatalf("Error making request: %v", err)
 		}
