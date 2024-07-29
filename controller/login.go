@@ -3,11 +3,6 @@ package controller
 
 
 
-	salt, err := hex.DecodeString(existsDoc.Salt)
-	if err != nil {
-		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server : salt")
-		return
-	}
 	hash := argon2.IDKey([]byte(user.Password), salt, 1, 64*1024, 4, 32)
 	if hex.EncodeToString(hash) != existsDoc.Password {
 		helper.ErrorResponse(respw, req, http.StatusUnauthorized, "Unauthorized", "password salah")
