@@ -3,11 +3,6 @@ package controller
 
 
 
-
-	segments := strings.Split(parsedURL.Path, "/")
-
-	modelName := strings.Join(segments[2:], "/")
-
 	// Request ke Hugging Face API
 	for retryCount < maxRetries {
 		response, err = client.R().
