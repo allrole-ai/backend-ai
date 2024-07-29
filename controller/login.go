@@ -1,17 +1,5 @@
 package controller
 
-import (
-	"encoding/hex"
-	"encoding/json"
-	"net/http"
-
-	"github.com/allrole-ai/backend-ai/helper"
-	"github.com/allrole-ai/backend-ai/model"
-	"github.com/badoux/checkmail"
-	"go.mongodb.org/mongo-driver/mongo"
-	"golang.org/x/crypto/argon2"
-)
-
 // user
 func Login(db *mongo.Database, respw http.ResponseWriter, req *http.Request, privatekey string) {
 	var user model.User
