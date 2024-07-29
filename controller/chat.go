@@ -4,10 +4,6 @@ package controller
 
 
 
-
-
-	var data []map[string]interface{}
-
 	err = json.Unmarshal(response.Body(), &data)
 	if err != nil {
 		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing response body "+err.Error())
