@@ -3,14 +3,6 @@ package controller
 
 
 
-
-	var response *resty.Response
-	var retryCount int
-	maxRetries := 5
-	retryDelay := 20 * time.Second
-
-	parsedURL, err := url.Parse(apiUrl)
-
 	if err != nil {
 		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing URL model hugging face"+err.Error())
 		return
