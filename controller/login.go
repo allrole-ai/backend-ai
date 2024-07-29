@@ -3,11 +3,6 @@ package controller
 
 
 
-	existsDoc, err := helper.GetUserFromEmail(user.Email, db)
-	if err != nil {
-		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server : get email "+err.Error())
-		return
-	}
 	salt, err := hex.DecodeString(existsDoc.Salt)
 	if err != nil {
 		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server : salt")
