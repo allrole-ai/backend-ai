@@ -4,10 +4,6 @@ package controller
 
 
 
-	// Hugging Face API URL dan token
-	apiUrl := config.GetEnv("HUGGINGFACE_API_KEY")
-	apiToken := "Bearer " + tokenmodel
-
 	var response *resty.Response
 	var retryCount int
 	maxRetries := 5
