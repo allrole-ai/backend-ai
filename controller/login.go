@@ -52,15 +52,6 @@ func Login(db *mongo.Database, respw http.ResponseWriter, req *http.Request, pri
 	}
 	
 
-	resp := map[string]interface{}{
-		"status":  "success",
-		"message": "login berhasil",
-		"token":   tokenstring,
-		"data": map[string]string{
-			"email":       existsDoc.Email,
-			"namalengkap": existsDoc.NamaLengkap,
-		},
-	}
 
 	helper.WriteJSON(respw, http.StatusOK, resp)
 }
