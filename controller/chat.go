@@ -37,3 +37,4 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing URL model hugging face"+err.Error())
 		return
 	}
+	segments := strings.Split(parsedURL.Path, "/")
