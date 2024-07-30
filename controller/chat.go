@@ -66,3 +66,7 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 			return
 		}
 	}
+	if response.StatusCode() != 200 {
+		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Errorr", "error from Hugging Face API "+string(response.Body()))
+		return
+	}
