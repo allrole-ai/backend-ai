@@ -24,5 +24,6 @@ func Login(db *mongo.Database, respw http.ResponseWriter, req *http.Request, pri
 		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "email tidak valid")
 		return
 	}
-	
+	existsDoc, err := helper.GetUserFromEmail(user.Email, db)
+
 
