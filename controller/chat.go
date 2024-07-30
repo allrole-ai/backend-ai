@@ -49,4 +49,6 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 				SetHeader("Content-Type", "application/json").
 				SetBody(`{"inputs": "` + chat.Query + `"}`).
 				Post(apiUrl)
-	
+			if err != nil {
+			log.Fatalf("Error making request: %v", err)
+		}
