@@ -21,3 +21,7 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "error parsing request body "+err.Error())
 		return
 	}
+	if chat.Query == "" {
+		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "mohon untuk melengkapi data")
+		return
+	}
