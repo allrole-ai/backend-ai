@@ -33,4 +33,6 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 	var response *resty.Response
 	var retryCount int
 
+	maxRetries := 5
+
 }
