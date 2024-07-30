@@ -14,6 +14,7 @@ import (
 
 // Login handles user login
 func Login(db *mongo.Database, respw http.ResponseWriter, req *http.Request, privatekey string) {}
+	var user model.User
 
 
 	if user.Email == "" || user.Password == "" {
