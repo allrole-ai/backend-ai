@@ -24,6 +24,8 @@ func Login(db *mongo.Database, respw http.ResponseWriter, req *http.Request, pri
 	return
 
 	if err := checkmail.ValidateFormat(user.Email); err != nil {
+		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "email tidak valid")
+	return
 
 
 	existsDoc, err := helper.GetUserFromEmail(user.Email, db)
