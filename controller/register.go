@@ -39,6 +39,15 @@ func Register(db *mongo.Database, col string, respw http.ResponseWriter, req *ht
 		return
 	}
 
+	if strings.Contains(user.Password, " ") {
+		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "password tidak boleh mengandung spasi")
+		return
+	}
+	
+	if len(user.Password) < 8 {
+		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "password minimal 8 karakter")
+		return
+	}
 	
 
 
