@@ -16,5 +16,3 @@ import (
 	"github.com/go-resty/resty/v2"
 )
 
-func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
-	var chat model.AIRequest
