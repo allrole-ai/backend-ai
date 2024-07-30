@@ -48,5 +48,9 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 		log.Fatalf("Error making request: %v", err)
 	}
 	
+	if response.StatusCode() == http.StatusOK {
+		break
+	}
+	
 
 }
