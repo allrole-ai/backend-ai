@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/allrole-ai/backend-ai/config"
 	"github.com/allrole-ai/backend-ai/helper"
 	"github.com/allrole-ai/backend-ai/model"
 	"github.com/go-resty/resty/v2"
@@ -24,5 +25,7 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 	}
 	
 	client := resty.New()
+
+	apiUrl := config.GetEnv("HUGGINGFACE_API_URL")
 
 }
