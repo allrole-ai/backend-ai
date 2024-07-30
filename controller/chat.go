@@ -38,3 +38,4 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 		return
 	}
 	segments := strings.Split(parsedURL.Path, "/")
+	modelName := strings.Join(segments[2:], "/")
