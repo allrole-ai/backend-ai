@@ -27,8 +27,4 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 
 	if chat.Query == "" {
 		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "mohon untuk melengkapi data")
-		return
-	}
-
-	client := resty.New()
 
