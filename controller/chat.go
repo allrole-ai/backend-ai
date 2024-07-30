@@ -30,3 +30,6 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 	apiToken := "Bearer " + tokenmodel
 	var response *resty.Response
 	var retryCount int
+	maxRetries := 5
+	retryDelay := 20 * time.Second
+	parsedURL, err := url.Parse(apiUrl)
