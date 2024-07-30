@@ -30,4 +30,6 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 
 	apiToken := "Bearer " + tokenmodel
 
+	var response *resty.Response
+
 }
