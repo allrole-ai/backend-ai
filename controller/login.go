@@ -45,6 +45,7 @@ func Login(db *mongo.Database, respw http.ResponseWriter, req *http.Request, pri
 		return
 	}
 
+	tokenstring, err := helper.Encode(user.ID, user.Email, privatekey)
 
 
 	resp := map[string]interface{}{
