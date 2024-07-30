@@ -89,4 +89,3 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 		}
 		helper.WriteJSON(respw, http.StatusOK, map[string]string{"answer": generatedText})
 	} else {
-
