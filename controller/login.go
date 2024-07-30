@@ -61,6 +61,5 @@ func Login(db *mongo.Database, respw http.ResponseWriter, req *http.Request, pri
 		},
 	}
 	
-
-	helper.WriteJSON(respw, http.StatusOK, resp)
+	
 }
