@@ -13,10 +13,7 @@ package controller
 
 
 
-	var response *resty.Response
-	var retryCount int
-	maxRetries := 5
-	retryDelay := 20 * time.Second
+
 
 
 		for retryCount < maxRetries {
