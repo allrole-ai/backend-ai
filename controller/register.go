@@ -70,3 +70,7 @@ salt := make([]byte, 16)
 		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server : insert data, "+err.Error())
 		return
 	}
+
+	resp := map[string]any{
+		"message":    "berhasil mendaftar",
+		"insertedID": insertedID,
