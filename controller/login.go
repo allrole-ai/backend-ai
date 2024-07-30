@@ -40,11 +40,6 @@ func Login(db *mongo.Database, respw http.ResponseWriter, req *http.Request, pri
 	}
 	
 
-	hash := argon2.IDKey([]byte(user.Password), salt, 1, 64*1024, 4, 32)
-	if hex.EncodeToString(hash) != existsDoc.Password {
-		helper.ErrorResponse(respw, req, http.StatusUnauthorized, "Unauthorized", "password salah")
-		return
-	}
 
 	tokenstring, err := helper.Encode(user.ID, user.Email, privatekey)
 	if err != nil {
