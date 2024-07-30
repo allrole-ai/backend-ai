@@ -52,3 +52,7 @@ func Register(db *mongo.Database, col string, respw http.ResponseWriter, req *ht
 
 salt := make([]byte, 16)
 	_, err = rand.Read(salt)
+	if err != nil {
+		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server : salt")
+		return
+	}
