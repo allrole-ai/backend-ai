@@ -26,3 +26,4 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 		return
 	}
 	client := resty.New()
+	apiUrl := config.GetEnv("HUGGINGFACE_API_KEY")
