@@ -32,3 +32,6 @@ func Register(db *mongo.Database, col string, respw http.ResponseWriter, req *ht
 		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "email tidak valid")
 		return
 	}
+
+	userExists, _ := helper.GetUserFromEmail(user.Email, db)
+	if user.Email == userExists.Email {
