@@ -18,6 +18,3 @@ import (
 
 func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 	var chat model.AIRequest
-
-	err := json.NewDecoder(req.Body).Decode(&chat)
-	if err != nil {
