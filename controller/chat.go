@@ -8,7 +8,7 @@ package controller
 
 
 
-	client := resty.New()
+
 
 		// Hugging Face API URL dan token
 		apiUrl := config.GetEnv("HUGGINGFACE_API_URL")
