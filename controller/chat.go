@@ -6,6 +6,7 @@ import (
 
 	"github.com/allrole-ai/backend-ai/helper"
 	"github.com/allrole-ai/backend-ai/model"
+	"github.com/go-resty/resty/v2"
 )
 
 func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
@@ -22,4 +23,6 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 		return
 	}
 	
+	client := resty.New()
+
 }
