@@ -38,3 +38,5 @@ func Register(db *mongo.Database, col string, respw http.ResponseWriter, req *ht
 		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "email sudah terdaftar")
 		return
 	}
+
+	if strings.Contains(user.Password, " ") {
