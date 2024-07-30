@@ -44,13 +44,8 @@ func Login(db *mongo.Database, respw http.ResponseWriter, req *http.Request, pri
 		helper.ErrorResponse(respw, req, http.StatusUnauthorized, "Unauthorized", "password salah")
 		return
 	}
-	
 
-	tokenstring, err := helper.Encode(user.ID, user.Email, privatekey)
-	if err != nil {
-		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server : token")
-		return
-	}
+
 
 	resp := map[string]interface{}{
 		"status":  "success",
