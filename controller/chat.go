@@ -3,6 +3,7 @@ package controller
 import (
 	"encoding/json"
 	"net/http"
+	"time"
 
 	"github.com/allrole-ai/backend-ai/config"
 	"github.com/allrole-ai/backend-ai/helper"
@@ -34,5 +35,6 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 	var retryCount int
 
 	maxRetries := 5
+	retryDelay := 20 * time.Second
 
 }
