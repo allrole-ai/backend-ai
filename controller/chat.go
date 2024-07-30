@@ -69,6 +69,7 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 	}
 	
 	var data []map[string]interface{}
+	err = json.Unmarshal(response.Body(), &data)
 
 
 }
