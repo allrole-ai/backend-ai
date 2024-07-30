@@ -34,7 +34,11 @@ func Login(db *mongo.Database, respw http.ResponseWriter, req *http.Request, pri
 	}
 
 	salt, err := hex.DecodeString(existsDoc.Salt)
-
+	if err != nil {
+		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server : salt")
+		return
+	}
+	
 
 	hash := argon2.IDKey([]byte(user.Password), salt, 1, 64*1024, 4, 32)
 	if hex.EncodeToString(hash) != existsDoc.Password {
