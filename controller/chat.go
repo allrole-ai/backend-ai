@@ -28,4 +28,6 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 
 	apiUrl := config.GetEnv("HUGGINGFACE_API_URL")
 
+	apiToken := "Bearer " + tokenmodel
+
 }
