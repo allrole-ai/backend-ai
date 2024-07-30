@@ -41,3 +41,12 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 	}
 	segments := strings.Split(parsedURL.Path, "/")
 	modelName := strings.Join(segments[2:], "/")
+
+		// Request ke Hugging Face API
+		for retryCount < maxRetries {
+			response, err = client.R().
+				SetHeader("Authorization", apiToken).
+				SetHeader("Content-Type", "application/json").
+				SetBody(`{"inputs": "` + chat.Query + `"}`).
+				Post(apiUrl)
+	
