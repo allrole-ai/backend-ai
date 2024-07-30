@@ -5,11 +5,7 @@
 
 
 
-	userExists, _ := helper.GetUserFromEmail(user.Email, db)
-	if user.Email == userExists.Email {
-		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "email sudah terdaftar")
-		return
-	}
+
 	if strings.Contains(user.Password, " ") {
 		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "password tidak boleh mengandung spasi")
 		return
