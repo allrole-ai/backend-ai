@@ -1,3 +1,5 @@
+package controller
+
 import (
 	"encoding/json"
 	"log"
@@ -11,3 +13,5 @@ import (
 	"github.com/allrole-ai/backend-ai/model"
 	"github.com/go-resty/resty/v2"
 )
+
+func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
