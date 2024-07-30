@@ -13,6 +13,7 @@ import (
 )
 
 // Login handles user login
+func Login(db *mongo.Database, respw http.ResponseWriter, req *http.Request, privatekey string) {}
 
 
 	if user.Email == "" || user.Password == "" {
