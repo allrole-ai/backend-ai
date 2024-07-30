@@ -22,3 +22,5 @@ func Register(db *mongo.Database, col string, respw http.ResponseWriter, req *ht
 		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "error parsing request body "+err.Error())
 		return
 	}
+
+	if user.NamaLengkap == "" || user.Email == "" || user.Password == "" || user.Confirmpassword == "" {
