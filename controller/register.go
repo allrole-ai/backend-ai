@@ -15,6 +15,7 @@ import (
 	"golang.org/x/crypto/argon2"
 )
 
+func Register(db *mongo.Database, col string, respw http.ResponseWriter, req *http.Request) {}
 
 
 	if user.NamaLengkap == "" || user.Email == "" || user.Password == "" || user.Confirmpassword == "" {
