@@ -1,5 +1,3 @@
-package controller
-
 import (
 	"crypto/rand"
 	"encoding/hex"
