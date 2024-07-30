@@ -64,3 +64,6 @@ salt := make([]byte, 16)
 		"password":    hex.EncodeToString(hashedPassword),
 		"salt":        hex.EncodeToString(salt),
 	}
+
+	insertedID, err := helper.InsertOneDoc(db, col, userData)
+	if err != nil {
