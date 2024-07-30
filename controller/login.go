@@ -39,6 +39,7 @@ func Login(db *mongo.Database, respw http.ResponseWriter, req *http.Request, pri
 		return
 	}
 	
+	hash := argon2.IDKey([]byte(user.Password), salt, 1, 64*1024, 4, 32)
 
 
 	tokenstring, err := helper.Encode(user.ID, user.Email, privatekey)
