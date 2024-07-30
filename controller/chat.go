@@ -5,12 +5,6 @@ import (
 	"log"
 	"net/http"
 
-	"net/url"
-	"os"
-	"strings"
-	"time"
-
-
 
 func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 	var chat model.AIRequest
