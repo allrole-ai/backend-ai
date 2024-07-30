@@ -68,5 +68,7 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 		return
 	}
 	
+	var data []map[string]interface{}
+
 
 }
