@@ -2,7 +2,12 @@ package controller
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
+
+	"net/url"
+	"os"
+	"strings"
 	"time"
 
 	"github.com/allrole-ai/backend-ai/config"
@@ -10,6 +15,7 @@ import (
 	"github.com/allrole-ai/backend-ai/model"
 	"github.com/go-resty/resty/v2"
 )
+
 
 func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 	var chat model.AIRequest
@@ -81,6 +87,6 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 	} else {
 		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server: response")
 	}
-	
+}
 
 }
