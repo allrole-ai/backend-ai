@@ -23,6 +23,8 @@ func Login(db *mongo.Database, respw http.ResponseWriter, req *http.Request, pri
 		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "mohon untuk melengkapi data")
 	return
 
+	if err := checkmail.ValidateFormat(user.Email); err != nil {
+
 
 	existsDoc, err := helper.GetUserFromEmail(user.Email, db)
 	if err != nil {
