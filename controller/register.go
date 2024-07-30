@@ -7,10 +7,6 @@
 
 
 
-
-		"namalengkap": user.NamaLengkap,
-		"email":       user.Email,
-		"password":    hex.EncodeToString(hashedPassword),
 		"salt":        hex.EncodeToString(salt),
 	}
 	insertedID, err := helper.InsertOneDoc(db, col, userData)
