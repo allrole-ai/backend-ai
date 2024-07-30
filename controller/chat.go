@@ -29,3 +29,4 @@ func Chat(respw http.ResponseWriter, req *http.Request, tokenmodel string) {
 	apiUrl := config.GetEnv("HUGGINGFACE_API_KEY")
 	apiToken := "Bearer " + tokenmodel
 	var response *resty.Response
+	var retryCount int
