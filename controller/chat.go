@@ -15,4 +15,9 @@ func Login(db *mongo.Database, respw http.ResponseWriter, req *http.Request, pri
 		return
 	}
 	
+	if user.Email == "" || user.Password == "" {
+		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "mohon untuk melengkapi data")
+		return
+	}
+	
 
