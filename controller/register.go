@@ -3,12 +3,6 @@ package controller
 
 
 
-		"namalengkap": user.NamaLengkap,
-		"email":       user.Email,
-		"password":    hex.EncodeToString(hashedPassword),
-		"salt":        hex.EncodeToString(salt),
-	}
-
 	insertedID, err := helper.InsertOneDoc(db, col, userData)
 	if err != nil {
 		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server : insert data, "+err.Error())
