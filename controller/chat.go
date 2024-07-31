@@ -3,33 +3,6 @@ package controller
 
 
 
-	// Request ke Hugging Face API
-	for retryCount < maxRetries {
-		response, err = client.R().
-			SetHeader("Authorization", apiToken).
-			SetHeader("Content-Type", "application/json").
-			SetBody(`{"inputs": "` + chat.Query + `"}`).
-			Post(apiUrl)
-
-		if err != nil {
-			log.Fatalf("Error making request: %v", err)
-		}
-
-		if response.StatusCode() == http.StatusOK {
-			break
-		} else {
-			var errorResponse map[string]interface{}
-			err = json.Unmarshal(response.Body(), &errorResponse)
-			if err == nil && errorResponse["error"] == "Model "+modelName+" is currently loading" {
-				retryCount++
-				time.Sleep(retryDelay)
-				continue
-			}
-			helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error from Hugging Face API "+string(response.Body()))
-			return
-		}
-	}
-
 	if response.StatusCode() != 200 {
 		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Errorr", "error from Hugging Face API "+string(response.Body()))
 		return
