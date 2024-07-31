@@ -186,17 +186,17 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 		}
 	}
 
-	// if response.StatusCode() != 200 {
-	// 	ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error from Hugging Face API "+string(response.Body()))
-	// 	return
-	// }
+	if response.StatusCode() != 200 {
+		ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error from Hugging Face API "+string(response.Body()))
+		return
+	}
 
-	// var data []map[string]interface{}
-	// err = json.Unmarshal(response.Body(), &data)
-	// if err != nil {
-	// 	ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing response body "+err.Error())
-	// 	return
-	// }
+	var data []map[string]interface{}
+	err = json.Unmarshal(response.Body(), &data)
+	if err != nil {
+		ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing response body "+err.Error())
+		return
+	}
 
 	// if len(data) > 0 {
 	// 	generatedText, ok := data[0]["generated_text"].(string)
