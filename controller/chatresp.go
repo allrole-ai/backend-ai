@@ -173,18 +173,18 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 
 		if response.StatusCode() == http.StatusOK {
 			break
-	// 	} else {
-	// 		var errorResponse map[string]interface{}
-	// 		err = json.Unmarshal(response.Body(), &errorResponse)
-	// 		if err == nil && errorResponse["error"] == "Model "+modelName+" is currently loading" {
-	// 			retryCount++
-	// 			time.Sleep(retryDelay)
-	// 			continue
-	// 		}
-	// 		ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error from Hugging Face API "+string(response.Body()))
-	// 		return
-	// 	}
-	// }
+		} else {
+			var errorResponse map[string]interface{}
+			err = json.Unmarshal(response.Body(), &errorResponse)
+			if err == nil && errorResponse["error"] == "Model "+modelName+" is currently loading" {
+				retryCount++
+				time.Sleep(retryDelay)
+				continue
+			}
+			ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error from Hugging Face API "+string(response.Body()))
+			return
+		}
+	}
 
 	// if response.StatusCode() != 200 {
 	// 	ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error from Hugging Face API "+string(response.Body()))
