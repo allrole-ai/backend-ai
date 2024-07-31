@@ -2,25 +2,6 @@ package controller
 
 
 
-	// Hugging Face API URL dan token
-	apiUrl := config.GetEnv("HUGGINGFACE_API_KEY")
-	apiToken := "Bearer " + tokenmodel
-
-	var response *resty.Response
-	var retryCount int
-	maxRetries := 5
-	retryDelay := 20 * time.Second
-
-	parsedURL, err := url.Parse(apiUrl)
-
-	if err != nil {
-		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing URL model hugging face"+err.Error())
-		return
-	}
-
-	segments := strings.Split(parsedURL.Path, "/")
-
-	modelName := strings.Join(segments[2:], "/")
 
 	// Request ke Hugging Face API
 	for retryCount < maxRetries {
