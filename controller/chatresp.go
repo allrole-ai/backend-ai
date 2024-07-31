@@ -205,17 +205,17 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 			return
 		}
 
-// 		if generatedText == "" {
-// 			WriteJSON(respw, http.StatusNoContent, map[string]string{"message": "No content generated"})
-// 		} else if generatedText == "special condition" { // Contoh kondisi khusus
-// 			WriteJSON(respw, http.StatusOK, map[string]string{"answer": generatedText, "note": "This is a special response"})
-// 		} else {
-// 			WriteJSON(respw, http.StatusOK, map[string]string{"answer": generatedText})
-// 		}
-// 	} else {
-// 		ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server: response")
-// 	}
-// }
+		if generatedText == "" {
+			WriteJSON(respw, http.StatusNoContent, map[string]string{"message": "No content generated"})
+		} else if generatedText == "special condition" { // Contoh kondisi khusus
+			WriteJSON(respw, http.StatusOK, map[string]string{"answer": generatedText, "note": "This is a special response"})
+		} else {
+			WriteJSON(respw, http.StatusOK, map[string]string{"answer": generatedText})
+		}
+	} else {
+		ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server: response")
+	}
+}
 
 // Fungsi untuk menangani respon JSON
 // func WriteJSON(w http.ResponseWriter, status int, data interface{}) {
