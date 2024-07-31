@@ -3,6 +3,8 @@ package controller
 import (
 	"crypto/rand"
 	"encoding/hex"
+	"net/http"
+	"strings"
 )
 
 func Register(db *mongo.Database, col string, respw http.ResponseWriter, req *http.Request) {
