@@ -125,14 +125,4 @@ type AIRequest struct {
 	Query string `json:"query"`
 }
 
-// Fungsi untuk menangani respon error
-func ErrorResponse(w http.ResponseWriter, r *http.Request, status int, errorType, message string) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(status)
-	json.NewEncoder(w).Encode(map[string]string{"error": errorType, "message": message})
-}
 
-// Struktur data untuk request
-type AIRequest struct {
-	Query string `json:"query"`
-}
