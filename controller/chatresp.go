@@ -124,5 +124,3 @@ func ErrorResponse(w http.ResponseWriter, r *http.Request, status int, errorType
 type AIRequest struct {
 	Query string `json:"query"`
 }
-
-
