@@ -217,12 +217,12 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 	}
 }
 
-// Fungsi untuk menangani respon JSON
-// func WriteJSON(w http.ResponseWriter, status int, data interface{}) {
-// 	w.Header().Set("Content-Type", "application/json")
-// 	w.WriteHeader(status)
-// 	json.NewEncoder(w).Encode(data)
-// }
+Fungsi untuk menangani respon JSON
+func WriteJSON(w http.ResponseWriter, status int, data interface{}) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(status)
+	json.NewEncoder(w).Encode(data)
+}
 
 // // Fungsi untuk menangani respon error
 // func ErrorResponse(w http.ResponseWriter, r *http.Request, status int, errorType, message string) {
