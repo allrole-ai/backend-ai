@@ -189,45 +189,45 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 	if response.StatusCode() != 200 {
 		ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error from Hugging Face API "+string(response.Body()))
 		return
-	}
+	// }
 
-	var data []map[string]interface{}
-	err = json.Unmarshal(response.Body(), &data)
-	if err != nil {
-		ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing response body "+err.Error())
-		return
-	}
+	// var data []map[string]interface{}
+	// err = json.Unmarshal(response.Body(), &data)
+	// if err != nil {
+	// 	ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing response body "+err.Error())
+	// 	return
+	// }
 
-	if len(data) > 0 {
-		generatedText, ok := data[0]["generated_text"].(string)
-		if !ok {
-			ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error extracting generated text")
-			return
-		}
+	// if len(data) > 0 {
+	// 	generatedText, ok := data[0]["generated_text"].(string)
+	// 	if !ok {
+	// 		ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error extracting generated text")
+	// 		return
+	// 	}
 
 		if generatedText == "" {
-			WriteJSON(respw, http.StatusNoContent, map[string]string{"message": "No content generated"})
-		} else if generatedText == "special condition" { // Contoh kondisi khusus
-			WriteJSON(respw, http.StatusOK, map[string]string{"answer": generatedText, "note": "This is a special response"})
-		} else {
-			WriteJSON(respw, http.StatusOK, map[string]string{"answer": generatedText})
-		}
-	} else {
-		ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server: response")
-	}
-}
+// 			WriteJSON(respw, http.StatusNoContent, map[string]string{"message": "No content generated"})
+// 		} else if generatedText == "special condition" { // Contoh kondisi khusus
+// 			WriteJSON(respw, http.StatusOK, map[string]string{"answer": generatedText, "note": "This is a special response"})
+// 		} else {
+// 			WriteJSON(respw, http.StatusOK, map[string]string{"answer": generatedText})
+// 		}
+// 	} else {
+// 		ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server: response")
+// 	}
+// }
 
-Fungsi untuk menangani respon JSON
-func WriteJSON(w http.ResponseWriter, status int, data interface{}) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(status)
-	json.NewEncoder(w).Encode(data)
-}
+// Fungsi untuk menangani respon JSON
+// func WriteJSON(w http.ResponseWriter, status int, data interface{}) {
+// 	w.Header().Set("Content-Type", "application/json")
+// 	w.WriteHeader(status)
+// 	json.NewEncoder(w).Encode(data)
+// }
 
-// Fungsi untuk menangani respon error
-func ErrorResponse(w http.ResponseWriter, r *http.Request, status int, errorType, message string) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(status)
-	json.NewEncoder(w).Encode(map[string]string{"error": errorType, "message": message})
-}
+// // Fungsi untuk menangani respon error
+// func ErrorResponse(w http.ResponseWriter, r *http.Request, status int, errorType, message string) {
+// 	w.Header().Set("Content-Type", "application/json")
+// 	w.WriteHeader(status)
+// 	json.NewEncoder(w).Encode(map[string]string{"error": errorType, "message": message})
+// }
 
