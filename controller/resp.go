@@ -100,4 +100,36 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 		return
 	}
 
+	// Greet handles a simple greeting request
+func Greet(respw http.ResponseWriter, req *http.Request) {
+	name := req.URL.Query().Get("name")
+	if name == "" {
+		name = "World"
+	}
+	message := "Hello, " + name + "!"
+	WriteJSON(respw, http.StatusOK, map[string]string{"message": message})
+}
+func Chat(respw http.ResponseWriter, req *http.Request) {
+	// Mengganti "tokenmodel" dengan token API yang sebenarnya
+	tokenmodel := "your_api_token_here"
+
+	var chat AIRequest
+	err := json.NewDecoder(req.Body).Decode(&chat)
+	if err != nil {
+		ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "error parsing request body "+err.Error())
+		return
+	}
+
+	if chat.Query == "" {
+		ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "mohon untuk melengkapi data")
+		return
+	}
+
+	client := resty.New()
+	apiUrl := "https://api-inference.huggingface.co/models/your_model_here" // Ganti dengan URL model Hugging Face yang sebenarnya
+	apiToken := "Bearer " + tokenmodel
+
+	var response *resty.Response
+	var retryCount int
+	maxRetries := 5
 	
