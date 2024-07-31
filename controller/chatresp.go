@@ -137,14 +137,14 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	// if chat.Query == "" {
-	// 	ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "mohon untuk melengkapi data")
-	// 	return
-	// }
+	if chat.Query == "" {
+		ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "mohon untuk melengkapi data")
+		return
+	}
 
-	// client := resty.New()
-	// apiUrl := "https://api-inference.huggingface.co/models/your_model_here" // Ganti dengan URL model Hugging Face yang sebenarnya
-	// apiToken := "Bearer " + tokenmodel
+	client := resty.New()
+	apiUrl := "https://api-inference.huggingface.co/models/your_model_here" // Ganti dengan URL model Hugging Face yang sebenarnya
+	apiToken := "Bearer " + tokenmodel
 
 	// var response *resty.Response
 	// var retryCount int
