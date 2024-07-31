@@ -187,7 +187,7 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 			ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error extracting generated text")
 			return
 		}
-/* 
+
 		if generatedText == "" {
 			WriteJSON(respw, http.StatusNoContent, map[string]string{"message": "No content generated"})
 		} else if generatedText == "special condition" { // Contoh kondisi khusus
@@ -198,4 +198,4 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 	} else {
 		ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server: response")
 	}
-} */
+}
