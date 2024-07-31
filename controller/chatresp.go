@@ -231,6 +231,3 @@ func ErrorResponse(w http.ResponseWriter, r *http.Request, status int, errorType
 	json.NewEncoder(w).Encode(map[string]string{"error": errorType, "message": message})
 }
 
-// Struktur data untuk request
-type AIRequest struct {
-	Query string `json:"query"`
