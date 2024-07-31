@@ -175,6 +175,6 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 		}
 
 		} else {
-			ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server: response")
-		}
+		ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server: response")
 	}
+}
