@@ -134,14 +134,14 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 	maxRetries := 5
 	retryDelay := 20 * time.Second
 
-	// parsedURL, err := url.Parse(apiUrl)
-	// if err != nil {
-	// 	ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing URL model hugging face"+err.Error())
-	// 	return
-	// }
+	parsedURL, err := url.Parse(apiUrl)
+	if err != nil {
+		ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing URL model hugging face"+err.Error())
+		return
+	}
 
-	// segments := strings.Split(parsedURL.Path, "/")
-	// modelName := strings.Join(segments[2:], "/")
+	segments := strings.Split(parsedURL.Path, "/")
+	modelName := strings.Join(segments[2:], "/")
 
 	// for retryCount < maxRetries {
 	// 	response, err = client.R().
