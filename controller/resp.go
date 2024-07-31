@@ -114,9 +114,4 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 	maxRetries := 5
 	retryDelay := 20 * time.Second
 
-	var response *resty.Response
-	var retryCount int
-	maxRetries := 5
-	retryDelay := 20 * time.Second
-
 	
