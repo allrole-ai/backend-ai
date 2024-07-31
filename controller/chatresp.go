@@ -198,16 +198,16 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	// if len(data) > 0 {
-	// 	generatedText, ok := data[0]["generated_text"].(string)
-	// 	if !ok {
-	// 		ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error extracting generated text")
-	// 		return
-	// 	}
+	if len(data) > 0 {
+		generatedText, ok := data[0]["generated_text"].(string)
+		if !ok {
+			ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error extracting generated text")
+			return
+		}
 
-	// 	if generatedText == "" {
-	// 		WriteJSON(respw, http.StatusNoContent, map[string]string{"message": "No content generated"})
-	// 	} else if generatedText == "special condition" { // Contoh kondisi khusus
+		if generatedText == "" {
+			WriteJSON(respw, http.StatusNoContent, map[string]string{"message": "No content generated"})
+		} else if generatedText == "special condition" { // Contoh kondisi khusus
 // 			WriteJSON(respw, http.StatusOK, map[string]string{"answer": generatedText, "note": "This is a special response"})
 // 		} else {
 // 			WriteJSON(respw, http.StatusOK, map[string]string{"answer": generatedText})
