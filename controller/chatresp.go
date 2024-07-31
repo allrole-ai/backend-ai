@@ -216,3 +216,21 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 		ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server: response")
 	}
 }
+
+Fungsi untuk menangani respon JSON
+func WriteJSON(w http.ResponseWriter, status int, data interface{}) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(status)
+	json.NewEncoder(w).Encode(data)
+}
+
+// Fungsi untuk menangani respon error
+func ErrorResponse(w http.ResponseWriter, r *http.Request, status int, errorType, message string) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(status)
+	json.NewEncoder(w).Encode(map[string]string{"error": errorType, "message": message})
+}
+
+// Struktur data untuk request
+type AIRequest struct {
+	Query string `json:"query"`
