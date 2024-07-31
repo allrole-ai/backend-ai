@@ -30,3 +30,9 @@ func Register(db *mongo.Database, col string, respw http.ResponseWriter, req *ht
 		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "password tidak boleh mengandung spasi")
 		return
 	}
+	salt := make([]byte, 16)
+	_, err = rand.Read(salt)
+	if err != nil {
+		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server : salt")
+		return
+	}
