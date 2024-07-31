@@ -196,5 +196,14 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing response body "+err.Error())
 		return
+	}
+
+	if len(data) > 0 {
+		generatedText, ok := data[0]["generated_text"].(string)
+		if !ok {
+			ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error extracting generated text")
+			return
+		}
+
 
 
