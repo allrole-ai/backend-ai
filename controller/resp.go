@@ -177,16 +177,16 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 	var data []map[string]interface{}
 	err = json.Unmarshal(response.Body(), &data)
 	if err != nil {
-	// 	ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing response body "+err.Error())
-	// 	return
-	// }
+		ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error parsing response body "+err.Error())
+		return
+	}
 
-	// if len(data) > 0 {
-	// 	generatedText, ok := data[0]["generated_text"].(string)
-	// 	if !ok {
-	// 		ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error extracting generated text")
-	// 		return
-	// 	}
+	if len(data) > 0 {
+		generatedText, ok := data[0]["generated_text"].(string)
+		if !ok {
+			ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error extracting generated text")
+			return
+		}
 /* 
 		if generatedText == "" {
 			WriteJSON(respw, http.StatusNoContent, map[string]string{"message": "No content generated"})
