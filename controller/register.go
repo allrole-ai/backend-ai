@@ -4,11 +4,6 @@ package controller
 
 
 
-	if len(user.Password) < 8 {
-		helper.ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "password minimal 8 karakter")
-		return
-	}
-
 	salt := make([]byte, 16)
 	_, err = rand.Read(salt)
 	if err != nil {
