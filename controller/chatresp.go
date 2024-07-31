@@ -213,16 +213,5 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 			WriteJSON(respw, http.StatusOK, map[string]string{"answer": generatedText})
 		}
 	} else {
-		ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server: response")
-	}
-}
-
-Fungsi untuk menangani respon JSON
-func WriteJSON(w http.ResponseWriter, status int, data interface{}) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(status)
-	json.NewEncoder(w).Encode(data)
-}
-
 
 
