@@ -125,14 +125,14 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	// client := resty.New()
-	// apiUrl := "https://api-inference.huggingface.co/models/your_model_here" // Ganti dengan URL model Hugging Face yang sebenarnya
-	// apiToken := "Bearer " + tokenmodel
+	client := resty.New()
+	apiUrl := "https://api-inference.huggingface.co/models/your_model_here" // Ganti dengan URL model Hugging Face yang sebenarnya
+	apiToken := "Bearer " + tokenmodel
 
-	// var response *resty.Response
-	// var retryCount int
-	// maxRetries := 5
-	// retryDelay := 20 * time.Second
+	var response *resty.Response
+	var retryCount int
+	maxRetries := 5
+	retryDelay := 20 * time.Second
 
 	// parsedURL, err := url.Parse(apiUrl)
 	// if err != nil {
