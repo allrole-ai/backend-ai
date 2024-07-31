@@ -126,16 +126,16 @@ type AIRequest struct {
 }
 
 
-// func Chat(respw http.ResponseWriter, req *http.Request) {
-// 	// Mengganti "tokenmodel" dengan token API yang sebenarnya
-// 	tokenmodel := "your_api_token_here"
+func Chat(respw http.ResponseWriter, req *http.Request) {
+	// Mengganti "tokenmodel" dengan token API yang sebenarnya
+	tokenmodel := "your_api_token_here"
 
-// 	var chat AIRequest
-// 	err := json.NewDecoder(req.Body).Decode(&chat)
-// 	if err != nil {
-// 		ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "error parsing request body "+err.Error())
-// 		return
-// 	}
+	var chat AIRequest
+	err := json.NewDecoder(req.Body).Decode(&chat)
+	if err != nil {
+		ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "error parsing request body "+err.Error())
+		return
+	}
 
 	// if chat.Query == "" {
 	// 	ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "mohon untuk melengkapi data")
