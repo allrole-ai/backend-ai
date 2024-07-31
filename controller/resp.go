@@ -174,7 +174,4 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 			WriteJSON(respw, http.StatusOK, map[string]string{"answer": generatedText})
 		}
 
-		} else {
-		ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server: response")
-	}
-}
+		
