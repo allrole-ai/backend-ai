@@ -1,5 +1,10 @@
 package controller
 
+import (
+	"crypto/rand"
+	"encoding/hex"
+)
+
 func Register(db *mongo.Database, col string, respw http.ResponseWriter, req *http.Request) {
 	var user model.User
 	err := json.NewDecoder(req.Body).Decode(&user)
