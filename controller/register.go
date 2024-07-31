@@ -1,15 +1,5 @@
 package controller
 
-
-
-	"github.com/allrole-ai/backend-ai/helper"
-	"github.com/allrole-ai/backend-ai/model"
-	"github.com/badoux/checkmail"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
-	"golang.org/x/crypto/argon2"
-)
-
 func Register(db *mongo.Database, col string, respw http.ResponseWriter, req *http.Request) {
 	var user model.User
 	err := json.NewDecoder(req.Body).Decode(&user)
@@ -44,8 +34,7 @@ func Register(db *mongo.Database, col string, respw http.ResponseWriter, req *ht
 		return
 	}
 
-
-salt := make([]byte, 16)
+	salt := make([]byte, 16)
 	_, err = rand.Read(salt)
 	if err != nil {
 		helper.ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "kesalahan server : salt")
@@ -72,7 +61,6 @@ salt := make([]byte, 16)
 		"data": map[string]string{
 			"email": user.Email,
 		},
-
 	}
 	helper.WriteJSON(respw, http.StatusCreated, resp)
 }
