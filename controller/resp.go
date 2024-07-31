@@ -142,14 +142,4 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 					retryCount++
 					time.Sleep(retryDelay)
 					continue
-				}
-				ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error from Hugging Face API "+string(response.Body()))
-				return
-			}
-		}
-	
-		if response.StatusCode() != 200 {
-			ErrorResponse(respw, req, http.StatusInternalServerError, "Internal Server Error", "error from Hugging Face API "+string(response.Body()))
-			return
-		}
-		
+					
