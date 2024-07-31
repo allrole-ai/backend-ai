@@ -152,3 +152,12 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 
 		if err != nil {
 			log.Fatalf("Error making request: %v", err)
+		}
+
+		if response.StatusCode() == http.StatusOK {
+			break
+		} else {
+			var errorResponse map[string]interface{}
+			err = json.Unmarshal(response.Body(), &errorResponse)
+			if err == nil && errorResponse["error"] == "Model "+modelName+" is currently loading" {
+				retryCount++
