@@ -99,4 +99,30 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 		ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "error parsing request body "+err.Error())
 		return
 	}
-client := resty.New()
+
+	// Greet handles a simple greeting request
+func Greet(respw http.ResponseWriter, req *http.Request) {
+	name := req.URL.Query().Get("name")
+	if name == "" {
+		name = "World"
+	}
+	message := "Hello, " + name + "!"
+	WriteJSON(respw, http.StatusOK, map[string]string{"message": message})
+}
+func Chat(respw http.ResponseWriter, req *http.Request) {
+	// Mengganti "tokenmodel" dengan token API yang sebenarnya
+	tokenmodel := "your_api_token_here"
+
+	var chat AIRequest
+	err := json.NewDecoder(req.Body).Decode(&chat)
+	if err != nil {
+		ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "error parsing request body "+err.Error())
+		return
+	}
+
+	if chat.Query == "" {
+		ErrorResponse(respw, req, http.StatusBadRequest, "Bad Request", "mohon untuk melengkapi data")
+		return
+	}
+
+	client := resty.New()
