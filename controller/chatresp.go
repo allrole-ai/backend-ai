@@ -160,19 +160,19 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 	segments := strings.Split(parsedURL.Path, "/")
 	modelName := strings.Join(segments[2:], "/")
 
-	// for retryCount < maxRetries {
-	// 	response, err = client.R().
-	// 		SetHeader("Authorization", apiToken).
-	// 		SetHeader("Content-Type", "application/json").
-	// 		SetBody(`{"inputs": "` + chat.Query + `"}`).
-	// 		Post(apiUrl)
+	for retryCount < maxRetries {
+		response, err = client.R().
+			SetHeader("Authorization", apiToken).
+			SetHeader("Content-Type", "application/json").
+			SetBody(`{"inputs": "` + chat.Query + `"}`).
+			Post(apiUrl)
 
-	// 	if err != nil {
-	// 		log.Fatalf("Error making request: %v", err)
-	// 	}
+		if err != nil {
+			log.Fatalf("Error making request: %v", err)
+		}
 
-	// 	if response.StatusCode() == http.StatusOK {
-	// 		break
+		if response.StatusCode() == http.StatusOK {
+			break
 	// 	} else {
 	// 		var errorResponse map[string]interface{}
 	// 		err = json.Unmarshal(response.Body(), &errorResponse)
