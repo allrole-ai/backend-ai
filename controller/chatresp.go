@@ -157,4 +157,12 @@ func Chat(respw http.ResponseWriter, req *http.Request) {
 		return
 	}
 
+	segments := strings.Split(parsedURL.Path, "/")
+	modelName := strings.Join(segments[2:], "/")
+
+	for retryCount < maxRetries {
+		response, err = client.R().
+			SetHeader("Authorization", apiToken).
+			SetHeader("Content-Type", "application/json").
+			SetBody(`{"inputs": "` + chat.Query + `"}`).
 
