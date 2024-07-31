@@ -1,7 +1,5 @@
 package controller
 
-
-
 func Register(db *mongo.Database, col string, respw http.ResponseWriter, req *http.Request) {
 	var user model.User
 	err := json.NewDecoder(req.Body).Decode(&user)
@@ -55,3 +53,5 @@ func Register(db *mongo.Database, col string, respw http.ResponseWriter, req *ht
 			"email": user.Email,
 		},
 	}
+	helper.WriteJSON(respw, http.StatusCreated, resp)
+}
